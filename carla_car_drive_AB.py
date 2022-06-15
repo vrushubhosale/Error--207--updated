@@ -38,31 +38,28 @@ def camera(get_blueprint_of_world):
 
 
 def car_control():
-	
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.52, steer=-1, gear=0));
-    time.sleep(5);
+    
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.52, steer=-1, gear=0))
+    time.sleep(5)
 
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, gear=0));
-    time.sleep(6);
-
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5,steer=-0.17, gear=0))
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, gear=0))
+    time.sleep(6)
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, steer=-0.17, gear=0))
     time.sleep(2)
-
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5,steer=0.14, gear=0))
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, steer=0.14, gear=0))
 
     time.sleep(9)
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.4,steer=0.25, gear=0))
- 
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.4, steer=-0.25, gear=0))
+
     time.sleep(1)
     dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.8, gear=0))
-
     time.sleep(4)
+
     dropped_vehicle.apply_control(carla.VehicleControl(hand_brake=True))
-    
     time.sleep(5)
     location = dropped_vehicle.get_location()
-    return location
 
+    return location
 
 
 data = []
@@ -82,19 +79,16 @@ try:
     simulator_camera_view = world.get_spectator()
     simulator_camera_view.set_transform(simulator_camera_location_rotation)
     location = dropped_vehicle.get_location()
-    print("Car Location"+ location)
+    print("Car present location:", location)
 
     camera_sensor = camera(get_blueprint_of_world)
     sensor_camera_spawn_point = carla.Transform(carla.Location(x=2.5, z=0.7))
     sensor = world.spawn_actor(camera_sensor, sensor_camera_spawn_point, attach_to=dropped_vehicle)
-
+    actor_list.append(sensor)
     sensor.listen(lambda camera_data: image(camera_data))
 
-    actor_list.append(sensor)
-
     car_new_location = car_control()
-     print( "Car New Location"+car_new_location)
-
+    print("Car new location:", car_new_location)
 
     actor_list.append(dropped_vehicle)
 finally:
@@ -102,6 +96,3 @@ finally:
     for actor in actor_list:
         actor.destroy()
     print('done.')
-
-
-
