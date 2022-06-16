@@ -39,11 +39,11 @@ def camera(get_blueprint_of_world):
 
 def car_control():
 	
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.52, steer=-1, gear=0));
-    time.sleep(5);
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.52, steer=-1, gear=0))
+    time.sleep(5)
 
-    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, gear=0));
-    time.sleep(6);
+    dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5, gear=0))
+    time.sleep(6)
 
     dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.5,steer=-0.17, gear=0))
     time.sleep(2)
@@ -55,7 +55,7 @@ def car_control():
  
     time.sleep(1)
     dropped_vehicle.apply_control(carla.VehicleControl(throttle=0.8, gear=0))
-
+	
     time.sleep(4)
     dropped_vehicle.apply_control(carla.VehicleControl(hand_brake=True))
     
